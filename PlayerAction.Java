@@ -81,13 +81,8 @@ public class PlayerClass {
     // To get the number of objects in inventory
     public int getNumberOfObjects() {
         return numberOfObjects;
-    }
+    }  
+  }
 
-    @Override
-    public String toString() {
-        return "PlayerClass [location=" + location + ", moveFrom=" + moveFrom + 
-               ", inventory=" + inventory + ", numberOfObjects=" + numberOfObjects + "]";
-    }
-}
 
 
