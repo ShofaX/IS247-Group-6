@@ -1,0 +1,168 @@
+public class CrystalCavern {
+    // Class variables to track puzzle state
+    private static boolean hasCrystal = false;
+    private static boolean hasCrystalKey = false;
+    private static boolean runesTranslated = false;
+
+    public static void main(String[] args) throws Exception {
+        // Initialize a basic input method using System.in and System.out
+        String command;
+        printIntro();
+
+        do {
+            // Asking for the next command
+            System.out.print("\nWhat would you like to do? ");
+            command = readLine().toLowerCase();
+
+            switch (command) {
+                case "help":
+                    printHelp();
+                    break;
+                case "look":
+                    lookAround();
+                    break;
+                case "pick up crystal":
+                    pickUpCrystal();
+                    break;
+                case "decipher runes":
+                    decipherRunes();
+                    break;
+                case "pry key":
+                    pryCrystalKey();
+                    break;
+                case "place crystal":
+                    placeCrystal();
+                    break;
+                case "go north":
+                    goNorth();
+                    break;
+                case "go south":
+                    System.out.println("You return to the Dark Entrance.");
+                    break;
+                case "go west":
+                    goWest();
+                    break;
+                default:
+                    System.out.println("Invalid action. Type 'help' for available actions.");
+            }
+
+        } while (!command.equals("exit"));
+    }
+
+    // Basic method to simulate input reading
+    private static String readLine() throws Exception {
+        StringBuilder input = new StringBuilder();
+        char c;
+        while ((c = (char) System.in.read()) != '\n') {
+            input.append(c);
+        }
+        return input.toString().trim();
+    }
+
+    // Intro description of the cavern
+    private static void printIntro() {
+        System.out.println("You enter the Crystal Cavern.");
+        System.out.println("This cavern sparkles with the glow of luminescent crystals embedded in the walls.");
+        System.out.println("You see: Glowing Crystals, Ancient runes on the floor, and a crystal key embedded in one of the walls.");
+        System.out.println("Exits: North (requires deciphering the runes), South (Dark Entrance), West (Underground river).");
+        System.out.println("Type 'help' to see a list of available actions.");
+    }
+
+    // Print available actions
+    private static void printHelp() {
+        System.out.println("Available actions:");
+        System.out.println("- look");
+        System.out.println("- pick up crystal");
+        System.out.println("- decipher runes");
+        System.out.println("- pry key");
+        System.out.println("- place crystal");
+        System.out.println("- go north");
+        System.out.println("- go south");
+        System.out.println("- go west");
+    }
+
+    // Describe the cavern and its contents
+    private static void lookAround() {
+        System.out.println("You see the shimmering, glowing crystals on the walls, ancient runes on the floor, and the crystal key embedded in the wall.");
+        System.out.println("Exits: North (requires deciphering the runes), South (Dark Entrance), West (Underground river).");
+    }
+
+    // Pick up a glowing crystal
+    private static void pickUpCrystal() {
+        if (!hasCrystal) {
+            hasCrystal = true;
+            System.out.println("You pick up a softly glowing crystal. It could be used as a light source.");
+        } else {
+            System.out.println("You already have a crystal.");
+        }
+    }
+
+    // Decipher the ancient runes (requires glowing crystal)
+    private static void decipherRunes() {
+        if (!hasCrystal) {
+            System.out.println("It's too dark to read the runes. You need a light source.");
+        } else if (!runesTranslated) {
+            runesTranslated = true;
+            System.out.println("You carefully decipher the runes using the light from the glowing crystal. They speak of a hidden slot where a specific crystal must be placed to open the northern passage.");
+        } else {
+            System.out.println("You have already deciphered the runes.");
+        }
+    }
+
+    // Pry the crystal key from the wall
+    private static void pryCrystalKey() {
+        if (!hasCrystalKey) {
+            hasCrystalKey = true;
+            System.out.println("Using a tool, you manage to pry the crystal key out of the wall.");
+        } else {
+            System.out.println("You already have the crystal key.");
+        }
+    }
+
+    // Place the crystal to solve the puzzle
+    private static void placeCrystal() throws Exception {
+        if (runesTranslated && hasCrystal) {
+            System.out.println("You approach the hidden slot where the crystal must be placed.");
+            System.out.print("Which crystal do you want to place (hint: 'glowing')? ");
+            String crystalChoice = readLine().toLowerCase();
+
+            if (crystalChoice.equals("glowing")) {
+                System.out.println("The crystal fits perfectly. The northern passage opens!");
+            } else {
+                System.out.println("Wrong crystal! The cavern shakes violently, and a cave-in occurs!");
+                System.out.println("You failed to solve the puzzle.");
+                System.exit(0); // Ends the game due to failure
+            }
+        } else {
+            System.out.println("You must decipher the runes and have the crystal to place it.");
+        }
+    }
+
+    // Go north after solving the puzzle
+    private static void goNorth() {
+        if (runesTranslated && hasCrystal) {
+            System.out.println("You move north through the narrow tunnel, having successfully solved the puzzle.");
+        } else {
+            System.out.println("You can't go north without deciphering the runes and placing the correct crystal.");
+        }
+    }
+
+    // New method to handle the west option, underground river
+    private static void goWest() throws Exception {
+        System.out.println("You walk towards the underground river. The water is dark and cold, and nothing of use is in sight.");
+        System.out.println("Do you want to 'go back' or 'take a dive'?");
+
+        String choice = readLine().toLowerCase();
+
+        if (choice.equals("go back")) {
+            System.out.println("You carefully walk back to the cavern.");
+        } else if (choice.equals("take a dive")) {
+            System.out.println("You dive into the cold water, but something pulls you deeper...");
+            System.out.println("Your journey ends as you are dragged into the depths of the river.");
+            System.exit(0); // Ends the game
+        } else {
+            System.out.println("Invalid action. You stand by the river.");
+        }
+    }
+}
+
