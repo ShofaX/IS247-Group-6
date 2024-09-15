@@ -1,12 +1,18 @@
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
+
+// This is the basic code, I still have stuff to add based on other classes and maybe more.
+  
+
 public class PlayerClass {
     private String location;
     private String moveFrom; 
-    private ArrayList<String> inventory;
+    private ArrayList<Item> inventory;
     private int numberOfObjects;
 
-    // Constructor with starting location and moveFrom
+   
     public PlayerClass(String startingLocation, String moveFrom, int numberOfObjects) {
         this.location = startingLocation;
         this.moveFrom = moveFrom;
@@ -14,42 +20,42 @@ public class PlayerClass {
         this.numberOfObjects = numberOfObjects;
     }
 
-    // Overloaded constructor if only location is provided
+   
     public PlayerClass(String startingLocation) {
         this(startingLocation, null, 0);
     }
 
-    // Get player's current location
+    // To get player's current location
     public String getLocation() {
         return location;
     }
 
-    // Set player's location (moving to a new area)
+    // To set a player's location (or moving to a new area)
     public void move(String newLocation) {
         System.out.println("Moving from " + location + " to " + newLocation);
-        this.moveFrom = location;  // Store the previous location
+        this.moveFrom = location;  
         this.location = newLocation;
     }
 
-    // Get player's previous location
+    // To get a player's previous location
     public String getMoveFrom() {
         return moveFrom;
     }
 
-    // Look at an object
+    // To look at an object
     public void look(String object) {
         System.out.println("You look at the " + object);
     }
 
-    // Pick up an item
-    public void pickup(String item) {
+    // To pick up an item
+    public void pickup(Item item) {
         inventory.add(item);
         numberOfObjects++;
         System.out.println("You picked up: " + item);
     }
 
-    // Drop an item
-    public void drop(String item) {
+    // To drop an item
+    public void drop(Item item) {
         if (inventory.remove(item)) {
             numberOfObjects--;
             System.out.println("You dropped: " + item);
@@ -58,17 +64,17 @@ public class PlayerClass {
         }
     }
 
-    // Use an item
-    public void use(String item) {
+    // To use a item
+    public void use(Item item) {
         if (inventory.contains(item)) {
             System.out.println("You used: " + item);
-            // Additional logic for item effects can be added here
+       
         } else {
             System.out.println("You don't have that item.");
         }
     }
 
-    // View inventory
+    // To view inventory
     public void showInventory() {
         if (inventory.isEmpty()) {
             System.out.println("Your inventory is empty.");
@@ -77,7 +83,7 @@ public class PlayerClass {
         }
     }
 
-    // Get the number of objects in inventory
+    // To get the number of objects in inventory
     public int getNumberOfObjects() {
         return numberOfObjects;
     }
@@ -88,4 +94,5 @@ public class PlayerClass {
                ", inventory=" + inventory + ", numberOfObjects=" + numberOfObjects + "]";
     }
 }
+
 
