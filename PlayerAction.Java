@@ -1,9 +1,4 @@
 import java.util.ArrayList;
-
-import java.util.ArrayList;
-
-
-// This is the basic code, I still have stuff to add based on other classes and maybe more.
   
 
 public class PlayerClass {
