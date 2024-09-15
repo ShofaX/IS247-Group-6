@@ -10,7 +10,7 @@ class Main {
     System.out.println("Welcome to the Planet of the Apes " + name + "!");
 
     // Create the player
-    PlayerAction player = new PlayerAction(name);
+    PlayerClass player = new PlayerClass();
 
     // Description of the game
     System.out.println();// To improve the output's readability
@@ -29,34 +29,15 @@ class Main {
     // Menu Options
     int userChoice = 0;
     do {
-      System.out.println(name + "'s current position is:");
-      System.out.println("Temparary output. Need map class and object.\n");
-      System.out.println("Your options are (1-4):\n "
-          + "1. Move forward.\n "
-          + "2. Turn right and move into the corrseponding section.\n "
-          + "3. Turn left and move into the corresponding section.\n "
-          + "4. Quit Game");
-      userChoice = input.nextInt();
-
-      // Update the map based on the user's choice then output
-      // Check if they reached the settlement
-      System.out.println();
-      switch (userChoice) {
-        case 1:
-          // move forward
-          break;
-        case 2:
-          // turn right
-          break;
-        case 3:
-          // turn left
-          break;
-        case 4:
-          System.out.println("User quits the game.");
-          break;
-        default:
-          System.out.println("Error: Unrecognized choice. You need to enter an integer between 1 and 4.");
-      }
+      System.out.println("The game is starting now. Your options are:");
+      System.out.println("1. Display location\n"
+                        +"2. Move\n"
+                        +"3. Previous location\n" //calls getMoveFrom
+                        +"4. Look\n"
+                        +"5. Pickup item\n"
+                        +"6. Drop item\n"
+                        +"7. Use item\n"
+                        +"8. Show inventory\n");
     } while (userChoice != 4);
 
     // End of game
