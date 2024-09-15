@@ -1,16 +1,20 @@
 import java.util.Scanner;
+import java.util.Random;
 
 class Main {
   public static void main(String[] args) {
+    // Create the map
+    Forest startLocation = new Forest();
+    
+    // Create the player
+    PlayerClass player = new PlayerClass(startLocation);
+    
     // Basic Intro
     Scanner input = new Scanner(System.in);
     System.out.println("Welcome to Planet of Apes.");
     System.out.println("What is your charecter's name?");
     String name = input.next();
     System.out.println("Welcome to the Planet of the Apes " + name + "!");
-
-    // Create the player
-    PlayerClass player = new PlayerClass();
 
     // Description of the game
     System.out.println();// To improve the output's readability
@@ -19,23 +23,25 @@ class Main {
         + "Your goal is to reach the human settlment.\n"
         + "You should avoid all other settlments and try to avoid any other dangers.\n"
         + "There are dangers that could end your gameplay. Be careful!");
+    System.out.println("Your starting location is a forest.");
+    System.out.println(startLocation.Forest());
 
-    // Menu Options
+    // Menu options
     int userChoice = 0;
     do {
       System.out.println("The game is starting now. Your options are (1-9_:");
       System.out.println("1. Display location\n"
                         +"2. Move\n"
-                        +"3. Previous location\n" //calls getMoveFrom
+                        +"3. Previous location\n"
                         +"4. Look\n"
                         +"5. Pickup item\n"
                         +"6. Drop item\n"
                         +"7. Use item\n"
                         +"8. Show inventory\n"
                         +"9. Quit game");
+      // Proccess the user's choice
       Switch(userChoice){
         String item;
-        
         case 1:
           System.out.println(name + "'s current location is:");
           System.out.println(player.getLocation());
