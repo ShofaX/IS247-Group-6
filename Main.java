@@ -20,16 +20,10 @@ class Main {
         + "You should avoid all other settlments and try to avoid any other dangers.\n"
         + "There are dangers that could end your gameplay. Be careful!");
 
-    // Create the map, rooms, and related objects
-    System.out.println();
-    Forest currMap = new Forest();
-    System.out.print("The current map is: ");
-    currMap.displayRoom();
-
     // Menu Options
     int userChoice = 0;
     do {
-      System.out.println("The game is starting now. Your options are:");
+      System.out.println("The game is starting now. Your options are (1-9_:");
       System.out.println("1. Display location\n"
                         +"2. Move\n"
                         +"3. Previous location\n" //calls getMoveFrom
@@ -37,8 +31,54 @@ class Main {
                         +"5. Pickup item\n"
                         +"6. Drop item\n"
                         +"7. Use item\n"
-                        +"8. Show inventory\n");
-    } while (userChoice != 4);
+                        +"8. Show inventory\n"
+                        +"9. Quit game");
+      Switch(userChoice){
+        String item;
+        
+        case 1:
+          System.out.println(name + "'s current location is:");
+          System.out.println(player.getLocation());
+          break;
+        case 2:
+          System.out.println("What location do you want to move to?");
+          String newLocation = input.next();
+          player.move(newLocation);
+          break;
+        case 3:
+          System.out.println("Your previous location was:");
+          player.getMoveFrom();
+          break;
+        case 4:
+          System.out.println("What item do you want to look at?");
+          item = input.next();
+          player.look(item);
+          break;
+        case 5:
+          System.out.println("What item do you want to look at?");
+          item = input.next();
+          player.pickup(item);
+          break;
+        case 6:
+          System.out.println("What item do you want to dop?");
+          item = input.next();
+          player.drop(item);
+          break;
+        case 7:
+          System.out.println("What item do you want to use?");
+          item = input.next();
+          player.drop(item);
+          break;
+        case 8:
+          player.showInventory();
+          break;
+        case 9:
+          System.out.println("User has quit the game. Exiting game now.");
+          break;
+        default:
+          System.out.println("Error: Unrecognized input. Only integers from 1 to 9 are accepted. Please try again.");
+      }
+    } while (userChoice != 9);
 
     // End of game
     input.close();
