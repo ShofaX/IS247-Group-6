@@ -4,9 +4,11 @@ public class GameMain {
 	public static void main(String[] args) {
 		// Create the map
 	    Forest startLocation = new Forest();
+	    CrystalCavern crystalCavern = new CrystalCavern();
 	    
 	    // Create the player
 	    PlayerClass player = new PlayerClass("Forest");
+
 	    
 	    // Basic introduction
 	    Scanner input = new Scanner(System.in);
