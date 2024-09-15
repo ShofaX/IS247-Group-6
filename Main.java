@@ -6,7 +6,7 @@ public class GameMain {
 	    Forest startLocation = new Forest();
 	    
 	    // Create the player
-	    PlayerClass player = new PlayerClass(startLocation);
+	    PlayerClass player = new PlayerClass("Forest");
 	    
 	    // Basic introduction
 	    Scanner input = new Scanner(System.in);
@@ -22,13 +22,15 @@ public class GameMain {
 	        + "Your goal is to reach the human settlment.\n"
 	        + "You should avoid all other settlments and try to avoid any other dangers.\n"
 	        + "There are dangers that could end your gameplay. Be careful!");
+	    
+	    System.out.println();
 	    System.out.println("Your starting location is a forest.");
-	    System.out.println(startLocation.Forest());
+	    startLocation.displayRoom();
 
 	    // Menu options
 	    int userChoice = 0;
 	    do {
-	      System.out.println("The game is starting now. Your options are (1-9_:");
+	      System.out.println("The game is starting now. Your options are (1-9):");
 	      System.out.println("1. Display location\n"
 	                        +"2. Move\n"
 	                        +"3. Previous location\n"
@@ -38,6 +40,8 @@ public class GameMain {
 	                        +"7. Use item\n"
 	                        +"8. Show inventory\n"
 	                        +"9. Quit game");
+	      userChoice = input.nextInt();
+	      
 	      // Process the user's choice
 	      String item;
 	      switch(userChoice){
@@ -59,21 +63,17 @@ public class GameMain {
 	          item = input.next();
 	          player.look(item);
 	          break;
+	         // errors with these three cases
 	        case 5:
 	          System.out.println("What item do you want to look at?");
-	          item = input.next();
-	          player.pickup(item);
 	          break;
 	        case 6:
 	          System.out.println("What item do you want to dop?");
-	          item = input.next();
-	          player.drop(item);
 	          break;
 	        case 7:
 	          System.out.println("What item do you want to use?");
-	          item = input.next();
-	          player.drop(item);
 	          break;
+	        //end of errors
 	        case 8:
 	          player.showInventory();
 	          break;
@@ -82,6 +82,8 @@ public class GameMain {
 	          break;
 	        default:
 	          System.out.println("Error: Unrecognized input. Only integers from 1 to 9 are accepted. Please try again.");
+	          System.out.println(userChoice);
+	          userChoice = 9;
 	      }
 	    } while (userChoice != 9);
 
