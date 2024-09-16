@@ -3,62 +3,81 @@ import java.util.ArrayList;
 public class PlayerClass {
     private Room currentRoom;
     private ArrayList<Item> inventory;
-    private int hp;  // Health points
+    private int hp;
 
-    public PlayerClass(Room startingRoom, int startingHp) {
-        this.currentRoom = startingRoom;
+    public PlayerClass(Room startingLocation, int startingHp) {
+        this.currentRoom = startingLocation;
         this.inventory = new ArrayList<>();
         this.hp = startingHp;
     }
 
-    public Room getLocationRoom() {
+    public Room getCurrentRoom() {
         return currentRoom;
     }
 
     public void move(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
         if (nextRoom != null) {
+            System.out.println("Moving from " + currentRoom.getName() + " to " + nextRoom.getName());
             currentRoom = nextRoom;
-            System.out.println("You moved to " + currentRoom.getName());
-            currentRoom.interact();
-            takeDamage(10); 
-        } else {
-            System.out.println("There's no exit in that direction.");
-        }
-    }
 
-    public void lookAround() {
-        currentRoom.interact();
+            // Check for specific room effects
+            if (currentRoom.getName().equals("Ape Settlement")) {
+                System.out.println("You've entered the Ape Settlement. You lost 30 HP!");
+                hp -= 30;
+                if (hp <= 0) {
+                    System.out.println("You have died, and couldn't get to the human settlement");
+                    hp = 0; // Ensure HP does not go below 0
+                }
+            }
+        } else {
+            System.out.println("You can't move in that direction.");
+        }
     }
 
     public void pickup(String itemName) {
         Item item = currentRoom.getItem(itemName);
         if (item != null) {
             inventory.add(item);
-            currentRoom.removeItem(itemName);
             System.out.println("You picked up: " + item.getName());
-
-            // Use a healing item if it's a potion
-            if (itemName.equalsIgnoreCase("Potion")) {
-                heal(20);
-            }
         } else {
-            System.out.println("Item not found.");
+            System.out.println("No such item in this room.");
         }
     }
 
     public void drop(String itemName) {
-        boolean found = false;
+        Item itemToDrop = null;
         for (Item item : inventory) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                inventory.remove(item);
-                currentRoom.addContent(itemName, item);
-                System.out.println("You dropped: " + itemName);
-                found = true;
+            if (item.getName().equals(itemName)) {
+                itemToDrop = item;
                 break;
             }
         }
-        if (!found) {
+        if (itemToDrop != null) {
+            inventory.remove(itemToDrop);
+            System.out.println("You dropped: " + itemToDrop.getName());
+        } else {
+            System.out.println("You don't have that item.");
+        }
+    }
+
+    public void use(String itemName) {
+        Item itemToUse = null;
+        for (Item item : inventory) {
+            if (item.getName().equals(itemName)) {
+                itemToUse = item;
+                break;
+            }
+        }
+        if (itemToUse != null) {
+            System.out.println("You used: " + itemToUse.getName() + ". " + itemToUse.getDescription());
+            // For if the person uses a potion
+            if (itemToUse.getName().equals("Potion")) {
+                hp += 20; // Heal 20 HP
+                System.out.println("You restored 20 HP. Current HP: " + hp);
+                inventory.remove(itemToUse); 
+            }
+        } else {
             System.out.println("You don't have that item.");
         }
     }
@@ -67,21 +86,24 @@ public class PlayerClass {
         if (inventory.isEmpty()) {
             System.out.println("Your inventory is empty.");
         } else {
-            System.out.println("Inventory: " + inventory);
+            System.out.println("Your inventory: ");
+            for (Item item : inventory) {
+                System.out.println("- " + item.getName() + ": " + item.getDescription());
+            }
         }
+    }
+
+    public void lookAround() {
+        currentRoom.interact();
     }
 
     public int getHp() {
         return hp;
     }
 
-    public void takeDamage(int amount) {
-        hp -= amount;
-        System.out.println("You took " + amount + " damage. Current HP: " + hp);
+    public void setHp(int hp) {
+        this.hp = hp;
     }
+}
 
-    public void heal(int amount) {
-        hp += amount;
-        System.out.println("You healed " + amount + " HP. Current HP: " + hp);
-    }
 }
