@@ -39,13 +39,13 @@ public class Room {
     }
 
     public void interact() {
-        System.out.println("You are in " + name + ": " + description);
+        System.out.println("You are now in " + name + ". " + description);
         if (!contents.isEmpty()) {
-            System.out.println("You see the following items: ");
-            contents.forEach((name, item) -> System.out.println("- " + name + ": " + item.getDescription()));
+            System.out.println("You can see these items:");
+            contents.forEach((itemName, item) -> System.out.println("- " + itemName + ": " + item.getDescription()));
         } else {
-            System.out.println("There are no items here.");
+            System.out.println("The room is empty.");
         }
-        System.out.println("Available exits: " + exits.keySet());
+        System.out.println("Exits available: " + exits.keySet());
     }
 }
